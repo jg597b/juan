@@ -33,7 +33,7 @@ class SongsController < ApplicationController
 
   def destroy
     @song.destroy
-    respond_with(@song)
+    respond_to :js, :html
   end
 
   private

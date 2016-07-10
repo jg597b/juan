@@ -10,10 +10,13 @@ table.table.table-striped
       th name
       th album
       th artist
+      th actions
+
   tbody
     - @songs.each do |song|
-      tr
+      tr id="song_#{song.id}"
         td= link_to song.name, song
         td= song.album.name
-        td= song.artist.name
-
+        td= link_to song_path(song), method: :delete, data: { confirm: 'Are you sure?' }, :remote => true, class: 'btn btn-danger' do
+            i.fa.fa-trash-o>
+            span.hidden-xs Delete
