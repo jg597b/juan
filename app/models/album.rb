@@ -8,4 +8,5 @@ class Album < ActiveRecord::Base
   validates :publisher_id, presence:true
   scope :latest_released, -> {order('released_on DESC').first}
   scope :recent, -> (n) { where(released_on: ((Date.today - 4.months)..Date.today)).last(n) }
+  scope :latest_section, ->(n) {order('released_on DESC').first(n)}
 end

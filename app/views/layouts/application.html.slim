@@ -50,7 +50,7 @@ html lang="en"
           .col-md-2
             ul
               li LATEST
-              li ~
+              = render partial: 'albums/recent', locals: {collection: Album.latest_section(4)}, cached: true
           .col-md-2
             ul
               li OUR TEAM
