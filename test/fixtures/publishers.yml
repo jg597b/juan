@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
+  name: MyString_<%= Time.now.to_i%>
   address: MyString
   city: MyString
-  state: MyString
-  zip: MyString
-  phone: MyString
-  url: MyString
+  state: AZ
+  zip: 12345
+  phone: 321-765-1234
+  url: http://www.msn.com
 
 two:
   name: MyString
