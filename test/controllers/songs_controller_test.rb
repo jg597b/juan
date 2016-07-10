@@ -46,4 +46,11 @@ class SongsControllerTest < ActionController::TestCase
 
     assert_redirected_to songs_path
   end
+
+  test "should destroy song via AJAX" do
+    assert_difference('Song.count', -1) do
+      delete :destroy, id: @song, format: :js
+    end
+    assert_response :success
+  end
 end
