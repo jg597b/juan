@@ -4,12 +4,14 @@
       = link_to "New", new_artist_path, class: 'btn btn-primary'
     | Artists
   
-table.table.table-striped
-  thead
-    tr
-      th name
-  tbody
-    - @artists.each do |artist|
-      tr
-        td= link_to artist.name, artist
-
+.container
+  h1 align="center"
+  - @artists.each_slice(3) do |artists|
+    .row
+      - artists.each do |artist|
+        .col-xs-12.col-sm-6.col-md-6.col-lg-4.col-centered
+          = link_to artist do
+            = image_tag "#{artist.profile_image_present? ? artist.image_url : 'default_user.png'}", size: "250x250",alt:"#{artist.name}"
+          br
+          = link_to artist.name, artist
+    br

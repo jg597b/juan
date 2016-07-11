@@ -24,3 +24,42 @@ dl.dl-horizontal
   - @artist.albums.uniq.each do |album|
     dt= link_to album.name, album
     dd= album.released_on
+
+    = content_for :sidebar
+  .well.sidebar-nav.sidebar
+    h3 = @artist.name
+    = image_tag 'spinner.gif', style: 'display:none;', id: "loading_spinner"
+    - if @artist.profile_image_present?
+      img(src=@artist.image_url style="width:225px;height:200px", id="artist_#{@artist.id}")
+    - else
+      = image_tag 'default_user.png', width: 225, height: 200, id: "artist_#{@artist.id}"
+
+javascript:
+  var imagePresent = "#{@artist.profile_image_present? ? true : false}"
+  if (imagePresent == "false") {
+    $.ajax({
+      url: 'https://randomuser.me/api/',
+      dataType: 'json',
+      beforeSend: function(){
+        $("#loading_spinner").css('display', 'block');
+      },
+      success: function(data){
+        saveToDb(data.results[0])
+      }
+    });
+  } else {
+    console.log('do nothing');
+  }
+
+  function saveToDb(user) {
+    $.ajax({
+      url: "/artists/#{@artist.id}/save_image.json",
+      type: 'POST',
+      dataType: 'json',
+      data: {'image_url': user.picture.large},
+      success: function(data){
+        $("#artist_#{@artist.id}").attr("src", user.picture.large);
+        $("#loading_spinner").css('display', 'none');
+      },
+    });
+  }

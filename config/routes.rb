@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :artists
+  resources :artists do
+    post 'save_image', on: :member
+  end
   resources :songs
   resources :albums
   resources :publishers
